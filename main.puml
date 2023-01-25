@@ -8,8 +8,17 @@ package shared {
 package logging {
     class Logging {
         + message: string
-        + send(): bool
+        + constructor(client: LoggingClient)
+        + sendToCloudWatch(): void
         + output(): Output
     }
+    interface LoggingClient {
+        + send(): void
+    }
+    class CloudWatch implements LoggingClient {
+        + send(): void
+    }
+    Logging <.. LoggingClient
+    Logging <- Output
 }
 @enduml

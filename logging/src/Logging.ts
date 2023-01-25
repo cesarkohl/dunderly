@@ -1,9 +1,12 @@
 import Output from "../../shared/Output.interface";
+import LoggingClient from "./LoggingClient.interface";
 
 class Logging {
+    private readonly client: LoggingClient;
     private readonly message: string;
 
-    constructor(message: string) {
+    constructor(client: LoggingClient, message: string) {
+        this.client = client;
         this.message = message;
     }
 
@@ -16,8 +19,8 @@ class Logging {
         }
     }
 
-    public sendToCloudWatch() {
-
+    public send() {
+        this.client.send();
     }
 }
 
