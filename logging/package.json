@@ -1,5 +1,11 @@
 {
   "name": "logging",
   "version": "1.0.0",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.1301.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18"
+  }
 }

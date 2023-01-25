@@ -32,4 +32,5 @@ sls-deploy: # deploy to aws
 
 _tsc-build: # build all js files
 	@echo "Building JS files..."
-	@tsc logging/index.ts
+	@pushd logging; \
+	 tsc index.ts
