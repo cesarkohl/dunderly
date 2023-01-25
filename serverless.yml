@@ -1,0 +1,9 @@
+service: dunderly
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+
+functions:
+  logging:
+    handler: logging/index.handler
