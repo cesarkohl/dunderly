@@ -10,7 +10,7 @@ class Logging {
         this.message = message;
     }
 
-    public output(): Output {
+    private output(): Output {
         return {
             statusCode: 200,
             body: JSON.stringify({
@@ -21,6 +21,7 @@ class Logging {
 
     public send() {
         this.client.send();
+        return this.output();
     }
 }
 

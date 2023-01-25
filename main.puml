@@ -1,4 +1,6 @@
 @startuml
+!theme amiga
+
 package shared {
     interface Output {
         statusCode: number;
@@ -9,8 +11,8 @@ package logging {
     class Logging {
         + message: string
         + constructor(client: LoggingClient)
-        + sendToCloudWatch(): void
-        + output(): Output
+        + send(): void
+        - output(): Output
     }
     interface LoggingClient {
         + send(): void
