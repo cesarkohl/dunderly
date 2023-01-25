@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "aws-sdk": "^2.1301.0"
+    "@aws-sdk/client-cloudwatch-logs": "^3.257.0",
+    "aws-sdk": "^2.1301.0",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "@types/node": "^18.11.18"

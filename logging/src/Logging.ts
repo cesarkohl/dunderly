@@ -14,13 +14,19 @@ class Logging {
         return {
             statusCode: 200,
             body: JSON.stringify({
-                message: this.message,
+                message: 'Message logged successfully.',
             }),
         }
     }
 
-    public send() {
-        this.client.send();
+    public async send(): Promise<Output> {
+        await this.client.send([
+            {
+                timestamp: Date.now(),
+                message: this.message,
+            }
+        ]);
+
         return this.output();
     }
 }

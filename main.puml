@@ -1,5 +1,5 @@
 @startuml
-!theme amiga
+'!theme amiga
 
 package shared {
     interface Output {
@@ -10,15 +10,16 @@ package shared {
 package logging {
     class Logging {
         + message: string
-        + constructor(client: LoggingClient)
-        + send(): void
-        - output(): Output
+        + constructor(client: LoggingClient, message: string)
+        + send(): Output
     }
     interface LoggingClient {
-        + send(): void
+        + send(events: LogEvent[])
     }
     class CloudWatch implements LoggingClient {
-        + send(): void
+        - events: InputLogEvent[]
+        + constructor(events: InputLogEvent[])
+        + send(events: LogEvent[])
     }
     Logging <.. LoggingClient
     Logging <- Output
