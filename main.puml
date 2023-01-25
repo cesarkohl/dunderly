@@ -1,0 +1,15 @@
+@startuml
+package shared {
+    interface Output {
+        statusCode: number;
+        body: string;
+    }
+}
+package logging {
+    class Logging {
+        + message: string
+        + send(): bool
+        + output(): Output
+    }
+}
+@enduml

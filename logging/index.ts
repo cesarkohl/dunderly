@@ -1,9 +1,10 @@
-export const handler = async(event: unknown) => {
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-            message: 'Hello from Lambda!',
-            input: event,
-        }),
-    };
+import Logging from "./src/Logging";
+
+interface Event {
+    message: string;
+}
+
+export const handler = async(event: Event) => {
+    const log = new Logging(event.message);
+    return log.output();
 };
