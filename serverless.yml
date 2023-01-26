@@ -6,4 +6,4 @@ provider:
 
 functions:
   logging:
-    handler: logging/index.handler
+    handler: logging/dist/index.handler
