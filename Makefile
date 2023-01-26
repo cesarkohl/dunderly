@@ -15,7 +15,7 @@ run-tests-coverage: # run all test suites with coverage
 
 sls-invoke-local: # invoke all functions locally for testing purposes
 	@make _tsc-build
-	@echo ${START}"Running fn logging locally..."${END}
+	@echo ${START}"Running Lambda function logging locally..."${END}
 	@serverless invoke local --function logging --data '{"message":"Test 3"}'
 
 #  _____   ______  _____  ______
@@ -28,7 +28,7 @@ sls-console: # enable serverless.com console: https://console.serverless.com/
 
 sls-invoke-prod: # invoke all functions in production
 	@echo "$@"
-	@echo ${START}"Running fn logging in production..."${END}
+	@echo ${START}"Running Lambda function logging in production..."${END}
 	@serverless invoke --function logging --data '{"message":"Test 3"}'
 
 sls-deploy: # deploy to aws
