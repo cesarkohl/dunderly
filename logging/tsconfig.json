@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es6",
     "strict": true,
     "preserveConstEnums": true,
     "noEmit": true,
@@ -12,5 +12,9 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
   },
-  "exclude": ["node_modules", "**/*.test.ts"]
+  "exclude": [
+    "node_modules",
+    "tests",
+    "jest.config.ts"
+  ]
 }

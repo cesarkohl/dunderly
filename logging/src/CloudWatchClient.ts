@@ -1,4 +1,4 @@
-import LoggingClient from "./LoggingClient.interface";
+import LoggingClient from "./contracts/LoggingClient.interface";
 import {AWSError} from "aws-sdk";
 import {
     CloudWatchLogsClient,

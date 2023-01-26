@@ -1,5 +1,5 @@
 import Output from "../../shared/Output.interface";
-import LoggingClient from "./LoggingClient.interface";
+import LoggingClient from "./contracts/LoggingClient.interface";
 
 class Logging {
     private readonly client: LoggingClient;

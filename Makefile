@@ -2,10 +2,18 @@
 # |      |     | |       |_____| |
 # |_____ |_____| |_____  |     | |_____
 
+run-tests: # run all test suites
+	@pushd logging && \
+	 npm run test
+
+run-tests-coverage: # run all test suites with coverage
+	@pushd logging && \
+	 npm run test-coverage
+
 sls-invoke-local: # invoke all functions locally for testing purposes
 	@make _tsc-build
 	@echo "Running logging..."
-	@serverless invoke local --function logging --data '{"message":"Test"}'
+	@serverless invoke local --function logging --data '{"message":"Test 3"}'
 
 #  _____   ______  _____  ______
 # |_____] |_____/ |     | |     \
@@ -15,10 +23,10 @@ sls-console: # enable serverless.com console: https://console.serverless.com/
 	@echo "$@"
 	@sls --console
 
-sls-invoke: # invoke all functions locally for testing purposes
+sls-invoke-prod: # invoke all functions in production
 	@echo "$@"
 	@echo "Running logging..."
-	@serverless invoke --function logging
+	@serverless invoke --function logging --data '{"message":"Test 3"}'
 
 sls-deploy: # deploy to aws
 	@echo "$@"
@@ -32,5 +40,5 @@ sls-deploy: # deploy to aws
 
 _tsc-build: # build all js files
 	@echo "Building JS files..."
-	@pushd logging; \
+	@pushd logging && \
 	 tsc index.ts
