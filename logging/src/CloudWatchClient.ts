@@ -83,6 +83,10 @@ class CloudWatchClient implements LoggingClient {
     }
 
     public async send(events: InputLogEvent[]): Promise<boolean> {
+        if (events.length === 0) {
+            return Promise.resolve(false);
+        }
+
         await this.setLogStream();
         await this.putLogEvents(events);
 

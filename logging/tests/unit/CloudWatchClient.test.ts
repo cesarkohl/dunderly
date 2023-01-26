@@ -1,15 +1,24 @@
-import CloudWatchClient, {mockSend} from "../__mocks__/CloudWatchClient";
+import CloudWatchClient from "../../src/CloudWatchClient";
 
-beforeEach(() => {
-    CloudWatchClient.mockClear();
-});
+jest.mock("@aws-sdk/client-cloudwatch-logs");
 
 describe('CloudWatchClient', () => {
+    // +
     it('sends', async () => {
         const client = new CloudWatchClient();
-        await client.send([{
+        const response = await client.send([{
             timestamp: Date.now(),
             message: "Message",
         }]);
+
+        expect(response).toBe(true);
+    });
+
+    // -
+    it('does not send given no events', async () => {
+        const client = new CloudWatchClient();
+        const response = await client.send([]);
+
+        expect(response).toBe(false);
     });
 });
