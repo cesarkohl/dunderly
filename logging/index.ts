@@ -7,6 +7,6 @@ interface Event {
 }
 
 export const handler = async (event: Event): Promise<Output> => {
-    const log = new Logging(new CloudWatchClient(), event.message);
-    return log.send();
+    const log = new Logging(new CloudWatchClient());
+    return log.send(event.message);
 };

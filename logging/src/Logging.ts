@@ -3,11 +3,9 @@ import LoggingClient from "./contracts/LoggingClient.interface";
 
 class Logging {
     private readonly client: LoggingClient;
-    private readonly message: string;
 
-    constructor(client: LoggingClient, message: string) {
+    constructor(client: LoggingClient) {
         this.client = client;
-        this.message = message;
     }
 
     private output(): Output {
@@ -19,13 +17,11 @@ class Logging {
         }
     }
 
-    public async send(): Promise<Output> {
-        await this.client.send([
-            {
-                timestamp: Date.now(),
-                message: this.message,
-            }
-        ]);
+    public async send(message: string): Promise<Output> {
+        await this.client.send([{
+            timestamp: Date.now(),
+            message: message,
+        }]);
 
         return this.output();
     }
