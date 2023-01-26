@@ -1,6 +1,8 @@
-import CloudWatchClient from "../../src/CloudWatchClient";
+import CloudWatchClient, {mockSend} from "../__mocks__/CloudWatchClient";
 
-jest.mock('@aws-sdk/client-cloudwatch-logs');
+beforeEach(() => {
+    CloudWatchClient.mockClear();
+});
 
 describe('CloudWatchClient', () => {
     it('sends', async () => {
