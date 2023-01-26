@@ -4,5 +4,5 @@ interface LogEvent {
 }
 
 export default interface LoggingClient {
-    send(events: LogEvent[]): Promise<void>;
+    send(events: LogEvent[]): Promise<boolean>;
 }

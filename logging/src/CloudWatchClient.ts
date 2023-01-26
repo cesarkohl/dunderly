@@ -2,9 +2,9 @@ import LoggingClient from "./contracts/LoggingClient.interface";
 import {AWSError} from "aws-sdk";
 import {
     CloudWatchLogsClient,
-    CreateLogStreamCommand, CreateLogStreamCommandOutput,
+    CreateLogStreamCommand,
     DescribeLogStreamsCommand, DescribeLogStreamsCommandOutput,
-    PutLogEventsCommand, PutLogEventsCommandOutput
+    PutLogEventsCommand, PutLogEventsCommandOutput,
 } from "@aws-sdk/client-cloudwatch-logs";
 import {InputLogEvent} from "aws-sdk/clients/cloudwatchlogs";
 
@@ -23,56 +23,70 @@ class CloudWatchClient implements LoggingClient {
     }
 
     private setCredentials(): void {
-        this.AWS.config.getCredentials((err: AWSError) => {
-            if (err) {
-                console.log(err.stack);
-                return;
+        this.AWS.config.getCredentials((error: AWSError) => {
+            if (error) {
+                throw error.stack;
             }
         });
     }
 
-    private async describeLogStreams(): Promise<DescribeLogStreamsCommandOutput> {
-        return await this.client.send(
-            new DescribeLogStreamsCommand({
-                logGroupName: this.GROUP_NAME,
-            }),
-        );
+    private async describeLogStreams(): Promise<DescribeLogStreamsCommandOutput|void> {
+        try {
+            return await this.client.send(
+                new DescribeLogStreamsCommand({
+                    logGroupName: this.GROUP_NAME,
+                }),
+            );
+        } catch (error: unknown) {
+            throw error;
+        }
     }
 
-    private async createLogStream(): Promise<CreateLogStreamCommandOutput> {
-        return await this.client.send(
-            new CreateLogStreamCommand({
-                logGroupName: this.GROUP_NAME,
-                logStreamName: this.STREAM_NAME,
-            }),
-        );
+    private async createLogStream(): Promise<boolean|void> {
+        try {
+            await this.client.send(
+                new CreateLogStreamCommand({
+                    logGroupName: this.GROUP_NAME,
+                    logStreamName: this.STREAM_NAME,
+                }),
+            );
+
+            return;
+        } catch (error: unknown) {
+            throw error;
+        }
     }
 
-    private async setLogStream(): Promise<CreateLogStreamCommandOutput|void> {
+    private async setLogStream(): Promise<boolean|void> {
         const currentLogStreams = await this.describeLogStreams();
-        const defaultLogStreamExists = currentLogStreams.logStreams?.filter(
+        const defaultLogStreamExists = currentLogStreams?.logStreams?.filter(
                 logStream => logStream.logStreamName === this.STREAM_NAME
             ).length;
 
         return !defaultLogStreamExists
             ? await this.createLogStream()
-            : Promise.resolve();
+            : Promise.resolve(true);
     }
 
-    private async putLogEvents(events: InputLogEvent[]): Promise<PutLogEventsCommandOutput> {
-        return await this.client.send(
-            new PutLogEventsCommand({
-                logGroupName: this.GROUP_NAME,
-                logStreamName: this.STREAM_NAME,
-                logEvents: events,
-            })
-        );
+    private async putLogEvents(events: InputLogEvent[]): Promise<PutLogEventsCommandOutput|void> {
+        try {
+            return await this.client.send(
+                new PutLogEventsCommand({
+                    logGroupName: this.GROUP_NAME,
+                    logStreamName: this.STREAM_NAME,
+                    logEvents: events,
+                }),
+            );
+        } catch (error: unknown) {
+            throw error;
+        }
     }
 
-    public async send(events: InputLogEvent[]): Promise<void> {
+    public async send(events: InputLogEvent[]): Promise<boolean> {
         await this.setLogStream();
         await this.putLogEvents(events);
-        return Promise.resolve();
+
+        return Promise.resolve(true);
     }
 }
 
