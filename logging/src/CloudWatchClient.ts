@@ -12,7 +12,7 @@ class CloudWatchClient implements LoggingClient {
     private readonly AWS: any;
     private readonly client: CloudWatchLogsClient;
     private readonly GROUP_NAME = process.env.AWS_LAMBDA_LOG_GROUP_NAME;
-    private readonly STREAM_NAME = 'log-3';
+    private readonly STREAM_NAME = process.env.AWS_LAMBDA_LOG_STREAM_NAME;
 
     constructor() {
         this.AWS = require('aws-sdk');
