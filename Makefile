@@ -6,15 +6,15 @@ END = "\033[0m"
 # |_____ |_____| |_____  |     | |_____
 
 install-dependencies:
-	@pushd logging && \
+	@cd logging && \
 	 npm install
 
 run-tests: # run all test suites
-	@pushd logging && \
+	@cd logging && \
 	 npm run test
 
 run-tests-coverage: # run all test suites with coverage
-	@pushd logging && \
+	@cd logging && \
 	 npm run test-coverage
 
 sls-invoke-local: # invoke all functions locally for testing purposes
