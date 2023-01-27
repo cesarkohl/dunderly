@@ -1,0 +1,46 @@
+name: Unit tests
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    paths:
+      - 'package.json'
+      - '**.ts'
+      - '**.yml'
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Install Serverless
+        uses: nick-invision/retry@v2
+        with:
+          timeout_minutes: 2
+          max_attempts: 5
+          command: wget -nv https://github.com/serverless/serverless/releases/download/v3.22.0/serverless-linux-x64 -O /usr/local/bin/serverless && chmod +x /usr/local/bin/serverless
+
+      - name: Install Dependencies
+        uses: nick-invision/retry@v2
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: yarn install
+#        env:
+#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Run unit tests
+        run: yarn run test
+#        env:
+#          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
