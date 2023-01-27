@@ -18,6 +18,11 @@ sls-invoke-local: # invoke all functions locally for testing purposes
 	@echo ${START}"Running Lambda function logging locally..."${END}
 	@serverless invoke local --function logging --data '{"message":"Test 3"}'
 
+sls-package:
+	@make _tsc-build
+	@echo ${START}"Building CloudFormation script at ./serverless ..."${END}
+	@serverless package
+
 #  _____   ______  _____  ______
 # |_____] |_____/ |     | |     \
 # |       |    \_ |_____| |_____/

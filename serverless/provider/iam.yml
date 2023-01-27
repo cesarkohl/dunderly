@@ -1,0 +1,11 @@
+#deploymentRole: ${env:AWS_DEPLOYMENT_ROLE_ARN}
+role:
+  statements:
+    - Effect: Allow
+      Action:
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:DescribeLogStreams
+        - logs:PutLogEvents
+      Resource:
+          Fn::GetAtt: [LoggingLogGroup, Arn]

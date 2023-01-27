@@ -3,7 +3,12 @@ service: dunderly
 provider:
   name: aws
   runtime: nodejs16.x
+  environment: ${file(serverless/provider/environment.yml)}
+  iam: ${file(serverless/provider/iam.yml)}
+  logRetentionInDays: 90
+  deploymentBucket:
+    blockPublicAccess: true
+    serverSideEncryption: AES256
 
 functions:
-  logging:
-    handler: logging/dist/index.handler
+  logging: ${file(serverless/functions/logging.yml)}
