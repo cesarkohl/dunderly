@@ -36,11 +36,13 @@ jobs:
         with:
           timeout_minutes: 5
           max_attempts: 5
-          command: yarn install
+#          command: yarn install
+          command: make install-dependencies
 #        env:
 #          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Run unit tests
-        run: yarn run test
+#        run: yarn run test
+        run: make run-tests
 #        env:
 #          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

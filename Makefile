@@ -5,6 +5,10 @@ END = "\033[0m"
 # |      |     | |       |_____| |
 # |_____ |_____| |_____  |     | |_____
 
+install-dependencies:
+	@pushd logging && \
+	 npm install
+
 run-tests: # run all test suites
 	@pushd logging && \
 	 npm run test
@@ -15,7 +19,7 @@ run-tests-coverage: # run all test suites with coverage
 
 sls-invoke-local: # invoke all functions locally for testing purposes
 	@make _tsc-build
-	@echo ${START}"Running Lambda function logging locally..."${END}
+	@echo ${START}"Invoking Lambda function logging locally..."${END}
 	@serverless invoke local --function logging --data '{"message":"Test 3"}'
 
 sls-package:
@@ -33,7 +37,7 @@ sls-console: # enable serverless.com console: https://console.serverless.com/
 
 sls-invoke-prod: # invoke all functions in production
 	@echo "$@"
-	@echo ${START}"Running Lambda function logging in production..."${END}
+	@echo ${START}"Invoking Lambda function logging in production..."${END}
 	@serverless invoke --function logging --data '{"message":"Test 3"}'
 
 sls-deploy: # deploy to aws
