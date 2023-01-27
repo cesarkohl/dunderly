@@ -1,5 +1,0 @@
-Resources:
-  LoggingLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: ${env:LOGGING_GROUP_NAME}
