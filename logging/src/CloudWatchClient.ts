@@ -41,6 +41,7 @@ class CloudWatchClient implements LoggingClient {
                     logGroupName: this.GROUP_NAME,
                 }),
             );
+            console.log(1, response);
 
             return response.logStreams;
         } catch (error: unknown) {
