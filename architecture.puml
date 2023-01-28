@@ -7,21 +7,31 @@ package shared {
         body: string;
     }
 }
+
 package logging {
     class Logging {
-        + message: string
-        + constructor(client: LoggingClient, message: string)
-        + send(): Output
+        + constructor(client: LoggingClient)
+        + send(message: string): Output
     }
     interface LoggingClient {
         + send(events: LogEvent[])
     }
     class CloudWatch implements LoggingClient {
-        - events: InputLogEvent[]
-        + constructor(events: InputLogEvent[])
+        + constructor()
         + send(events: LogEvent[])
     }
     Logging <.. LoggingClient
     Logging <- Output
 }
+
+package error-reporting {
+    interface ErrorReportingClient {
+        + send(error: string)
+    }
+    class Bugsnag implements ErrorReportingClient {
+        + send(error: string)
+    }
+}
+
+CloudWatch <. ErrorReportingClient
 @enduml

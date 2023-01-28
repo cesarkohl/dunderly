@@ -18,7 +18,7 @@
   ],
   "exclude": [
     "node_modules",
-    "tests",
+    "logging/tests",
     "jest.config.ts"
   ]
 }
