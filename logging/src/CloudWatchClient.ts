@@ -10,7 +10,7 @@ import {InputLogEvent, LogStream} from "aws-sdk/clients/cloudwatchlogs";
 import ErrorReportingClient from "../../error-reporting/src/contracts/ErrorReportingClient.interface";
 
 class CloudWatchClient implements LoggingClient {
-    private readonly AWS: any;
+    private readonly AWS;
     private readonly client: CloudWatchLogsClient;
     private readonly GROUP_NAME = process.env.AWS_LAMBDA_LOG_GROUP_NAME;
     private readonly STREAM_NAME = process.env.AWS_LAMBDA_LOG_STREAM_NAME;
@@ -66,7 +66,7 @@ class CloudWatchClient implements LoggingClient {
     private async setLogStream(): Promise<boolean | void> {
         const logStreams = await this.describeLogStreams();
 
-        const theLogStream: boolean = !!logStreams?.filter(
+        const theLogStream = !!logStreams?.filter(
             logStream => logStream.logStreamName === this.STREAM_NAME
         ).length;
 

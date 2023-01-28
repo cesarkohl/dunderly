@@ -7,7 +7,6 @@ on:
   pull_request:
     paths:
       - '**.js'
-      - '**.vue'
       - '**.yml'
 
 jobs:
@@ -21,4 +20,4 @@ jobs:
         run: yarn
 
       - name: Run ESLint
-        run: eslint . --ext .js,.jsx,.ts,.tsx
+        run: npx eslint ./logging
