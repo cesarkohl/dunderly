@@ -1,4 +1,4 @@
-BUGSNAG_API_KEY=6b1e0dac71f299d84e0b0a3fd429c9ce
+include .env
 
 START = "\033[92m"
 END = "\033[0m"
