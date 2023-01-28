@@ -20,4 +20,4 @@ jobs:
         run: yarn
 
       - name: Run ESLint
-        run: npx eslint ./logging
+        run: make lint-run

@@ -15,12 +15,17 @@ tests-run-coverage: # run all test suites with coverage
 	@cd logging && \
 	 npm run test-coverage
 
+lint-run: # run ESLint on all TS files
+	@echo ${START}"Running ESLint against TypeScript files..."${END}
+	@npx eslint ./logging
+
 sls-invoke-local: # invoke all functions locally for testing purposes
 	@echo ${START}"Invoking Lambda function logging locally..."${END}
-	@rm -rf .build
+	@make lint-run
+	@make clear-build
 	@BUGSNAG_API_KEY=${BUGSNAG_API_KEY} serverless invoke local --function logging --data '{"message":"Test 3"}'
 
-sls-package:
+sls-package: # package at ./serverless
 	@echo ${START}"Building CloudFormation script at ./serverless ..."${END}
 	@serverless package
 
@@ -33,6 +38,8 @@ sls-console: # enable serverless.com console: https://console.serverless.com/
 
 sls-invoke-prod: # invoke all functions in production
 	@echo ${START}"Invoking Lambda function logging in production..."${END}
+	@make lint-run
+	@make clear-build
 	@serverless invoke --function logging --data '{"message":"Test 3"}'
 
 sls-deploy: # deploy to aws
@@ -42,3 +49,6 @@ sls-deploy: # deploy to aws
 # _     _ _______         _____  _______  ______ _______
 # |_____| |______ |      |_____] |______ |_____/ |______
 # |     | |______ |_____ |       |______ |    \_ ______|
+
+clear-build:
+	@rm -rf .build
