@@ -5,11 +5,11 @@ END = "\033[0m"
 # |      |     | |       |_____| |
 # |_____ |_____| |_____  |     | |_____
 
-run-tests: # run all test suites
+tests-run: # run all test suites
 	@cd logging && \
 	 npm run test
 
-run-tests-coverage: # run all test suites with coverage
+tests-run-coverage: # run all test suites with coverage
 	@cd logging && \
 	 npm run test-coverage
 
