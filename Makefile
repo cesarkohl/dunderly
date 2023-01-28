@@ -1,3 +1,5 @@
+BUGSNAG_API_KEY=6b1e0dac71f299d84e0b0a3fd429c9ce
+
 START = "\033[92m"
 END = "\033[0m"
 
@@ -16,7 +18,7 @@ tests-run-coverage: # run all test suites with coverage
 sls-invoke-local: # invoke all functions locally for testing purposes
 	@echo ${START}"Invoking Lambda function logging locally..."${END}
 	@rm -rf .build
-	@BUGSNAG_API_KEY=6b1e0dac71f299d84e0b0a3fd429c9ce serverless invoke local --function logging --data '{"message":"Test 3"}'
+	@BUGSNAG_API_KEY=${BUGSNAG_API_KEY} serverless invoke local --function logging --data '{"message":"Test 3"}'
 
 sls-package:
 	@echo ${START}"Building CloudFormation script at ./serverless ..."${END}
