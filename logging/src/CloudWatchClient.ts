@@ -3,10 +3,10 @@ import {AWSError} from "aws-sdk";
 import {
     CloudWatchLogsClient,
     CreateLogStreamCommand,
-    DescribeLogStreamsCommand, DescribeLogStreamsCommandOutput,
+    DescribeLogStreamsCommand,
     PutLogEventsCommand, PutLogEventsCommandOutput,
 } from "@aws-sdk/client-cloudwatch-logs";
-import {InputLogEvent} from "aws-sdk/clients/cloudwatchlogs";
+import {InputLogEvent, LogStream} from "aws-sdk/clients/cloudwatchlogs";
 import ErrorReportingClient from "../../error-reporting/src/contracts/ErrorReportingClient.interface";
 
 class CloudWatchClient implements LoggingClient {
@@ -34,19 +34,21 @@ class CloudWatchClient implements LoggingClient {
         });
     }
 
-    private async describeLogStreams(): Promise<DescribeLogStreamsCommandOutput|void> {
+    private async describeLogStreams(): Promise<LogStream[] | void> {
         try {
-            return await this.client.send(
+            const response = await this.client.send(
                 new DescribeLogStreamsCommand({
                     logGroupName: this.GROUP_NAME,
                 }),
             );
+
+            return response.logStreams;
         } catch (error: unknown) {
             this.errorReportingClient.send(error);
         }
     }
 
-    private async createLogStream(): Promise<boolean|void> {
+    private async createLogStream(): Promise<boolean | void> {
         try {
             await this.client.send(
                 new CreateLogStreamCommand({
@@ -61,24 +63,17 @@ class CloudWatchClient implements LoggingClient {
         }
     }
 
-    private async setLogStream(): Promise<boolean|void> {
+    private async setLogStream(): Promise<boolean | void> {
         const logStreams = await this.describeLogStreams();
-        console.log(11, typeof logStreams);
 
-        // if (logStreams instanceof Promise<DescribeLogStreamsCommandOutput>) {
-        // }
-        // const theLogStream = logStreams ? logStreams.logStreams.filter(
-        //         logStream => logStream.logStreamName === this.STREAM_NAME
-        //     ).length : 0;
+        const theLogStream: boolean = !!logStreams?.filter(
+            logStream => logStream.logStreamName === this.STREAM_NAME
+        ).length;
 
-        // return theLogStream === 0
-        //     ? await this.createLogStream()
-        //     : Promise.resolve(true);
-
-        return Promise.resolve(true);
+        return theLogStream ? Promise.resolve(true) : await this.createLogStream();
     }
 
-    private async putLogEvents(events: InputLogEvent[]): Promise<PutLogEventsCommandOutput|void> {
+    private async putLogEvents(events: InputLogEvent[]): Promise<PutLogEventsCommandOutput | void> {
         try {
             return await this.client.send(
                 new PutLogEventsCommand({
