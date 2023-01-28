@@ -24,13 +24,11 @@ bugsnag-source-maps:
        --bundle dist/index.js
 
 sls-invoke-local: # invoke all functions locally for testing purposes
-	@make tsc-build
 	@#make bugsnag-source-maps
 	@echo ${START}"Invoking Lambda function logging locally..."${END}
-	@serverless invoke local --function logging --data '{"message":"Test 3"}'
+	@BUGSNAG_API_KEY=6b1e0dac71f299d84e0b0a3fd429c9ce serverless invoke local --function logging --data '{"message":"Test 3"}'
 
 sls-package:
-	@make tsc-build
 	@echo ${START}"Building CloudFormation script at ./serverless ..."${END}
 	@serverless package
 
@@ -49,7 +47,6 @@ sls-invoke-prod: # invoke all functions in production
 
 sls-deploy: # deploy to aws
 	@echo ${START}"Deploying to AWS..."${END}
-	@make tsc-build
 	@sls deploy
 
 # _     _ _______         _____  _______  ______ _______
@@ -59,8 +56,3 @@ sls-deploy: # deploy to aws
 install-dependencies:
 	@cd logging && \
 	 npm install
-
-tsc-build: # build all js files
-	@echo ${START}"Bundling into a single JS file..."${END}
-	@pushd logging && \
-	 npm run build
