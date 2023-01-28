@@ -1,1 +1,1 @@
-handler: logging/dist/index.handler
+handler: logging/index.handler
