@@ -11,9 +11,7 @@ class Logging {
     private output(): Output {
         return {
             statusCode: 200,
-            body: JSON.stringify({
-                message: 'Message logged successfully.',
-            }),
+            body: 'Message logged successfully.',
         }
     }
 

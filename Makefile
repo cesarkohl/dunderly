@@ -29,11 +29,9 @@ sls-package:
 # |       |    \_ |_____| |_____/
 
 sls-console: # enable serverless.com console: https://console.serverless.com/
-	@echo "$@"
 	@sls --console
 
 sls-invoke-prod: # invoke all functions in production
-	@echo "$@"
 	@echo ${START}"Invoking Lambda function logging in production..."${END}
 	@serverless invoke --function logging --data '{"message":"Test 3"}'
 
