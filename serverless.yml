@@ -10,5 +10,8 @@ provider:
     blockPublicAccess: true
     serverSideEncryption: AES256
 
+plugins:
+  - serverless-plugin-typescript
+
 functions:
   logging: ${file(serverless/functions/logging.yml)}

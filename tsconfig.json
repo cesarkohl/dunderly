@@ -11,10 +11,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": false,
-    "outDir": "./"
+    "outDir": ".build",
+    "rootDir": "./"
   },
   "include": [
-    "src/**/*.ts"
+    "logging/**/*.ts"
   ],
   "exclude": [
     "node_modules",
