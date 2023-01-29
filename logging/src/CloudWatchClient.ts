@@ -20,6 +20,10 @@ class CloudWatchClient implements LoggingClient {
         this.AWS = require('aws-sdk');
         this.client = new CloudWatchLogsClient({
             region: process.env.AWS_REGION,
+            credentials: {
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+            }
         });
         this.setCredentials();
 
@@ -41,7 +45,6 @@ class CloudWatchClient implements LoggingClient {
                     logGroupName: this.GROUP_NAME,
                 }),
             );
-            console.log(1, response);
 
             return response.logStreams;
         } catch (error: unknown) {
