@@ -1,9 +1,11 @@
 service: dunderly
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs16.x
-#  environment: ${file(serverless/provider/environment.yml)}
+  environment: ${file(serverless/provider/environment.yml)}
   iam: ${file(serverless/provider/iam.yml)}
   logRetentionInDays: 90
   deploymentBucket:

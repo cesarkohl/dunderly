@@ -23,7 +23,7 @@ sls-invoke-local: # invoke all functions locally for testing purposes
 	@echo ${START}"Invoking Lambda function logging locally..."${END}
 	@make lint-run
 	@make clear-build
-	@BUGSNAG_API_KEY=${BUGSNAG_API_KEY} serverless invoke local --function logging --data '{"message":"Test 3"}'
+	@serverless invoke local --function logging --data '{"message":"Test 3"}'
 
 sls-package: # package at ./serverless
 	@echo ${START}"Building CloudFormation script at ./serverless ..."${END}
