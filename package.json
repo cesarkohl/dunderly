@@ -1,0 +1,31 @@
+{
+  "name": "logging",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --no-stats",
+    "test": "jest",
+    "test-coverage": "jest --coverage",
+    "security-audit": "audit-ci --config audit-ci.json"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cloudwatch-logs": "^3.257.0",
+    "@bugsnag/js": "^7.19.0",
+    "aws-sdk": "^2.1301.0",
+    "dotenv": "^16.0.3",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.4.0",
+    "@types/node": "^18.11.18",
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "audit-ci": "^6.6.1",
+    "eslint": "^8.32.0",
+    "jest": "^29.4.0",
+    "serverless-plugin-typescript": "^2.1.4",
+    "ts-jest": "^29.0.5",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4"
+  }
+}

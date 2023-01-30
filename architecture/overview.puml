@@ -1,0 +1,54 @@
+@startuml
+!theme amiga
+allowmixing
+
+actor 3rdPartyConsumer
+object 3rdPaymentService
+object View <<Interface>>
+
+package Backend {
+    database Store
+
+    package API <<Application Service>> {
+        object API <<AggregateRoot>>
+    }
+
+    package Employee <<Domain Service>> {
+        object Employee <<AggregateRoot>>
+    }
+
+    package Salary <<Domain Service>> {
+        object Salary <<AggregateRoot>>
+    }
+
+    package Vacation <<Domain Service>> {
+        object Vacation <<AggregateRoot>>
+    }
+
+    package Payment <<Domain Service>> {
+        object Payment <<AggregateRoot>>
+    }
+
+    package Logging <<Infrastructure Service>> {
+        object Logging <<AggregateRoot>>
+    }
+
+'    object Shared <<SharedKernel>>
+}
+
+3rdPartyConsumer "HTTP" <-- API
+View <-- API
+API <-- Employee
+API <-- Salary
+API <-- Vacation
+API <-- Payment
+Employee <--- Logging
+Employee <-- Store
+Salary <--- Logging
+Salary <-- Store
+Vacation <--- Logging
+Vacation <-- Store
+Payment <--- Logging
+Payment <-- "HTTP" 3rdPaymentService
+'Logging <-- Shared
+@enduml

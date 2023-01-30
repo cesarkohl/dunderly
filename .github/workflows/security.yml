@@ -1,0 +1,19 @@
+name: Security
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    paths:
+      - '**.js'
+      - '**.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Audit for vulnerabilities
+        run: npx audit-ci@^6 --config ./audit-ci.json

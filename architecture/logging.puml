@@ -1,0 +1,37 @@
+@startuml
+!theme amiga
+
+package shared {
+    interface Output {
+        statusCode: number;
+        body: string;
+    }
+}
+
+package logging {
+    class Logging {
+        + constructor(client: LoggingClient)
+        + send(message: string): Output
+    }
+    interface LoggingClient {
+        + send(events: LogEvent[])
+    }
+    class CloudWatch implements LoggingClient {
+        + constructor()
+        + send(events: LogEvent[])
+    }
+    Logging <.. LoggingClient
+    Logging <- Output
+}
+
+package error-reporting {
+    interface ErrorReportingClient {
+        + send(error: string)
+    }
+    class Bugsnag implements ErrorReportingClient {
+        + send(error: string)
+    }
+}
+
+CloudWatch <. ErrorReportingClient
+@enduml

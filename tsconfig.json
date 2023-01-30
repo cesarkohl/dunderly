@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "strict": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "module":"commonjs",
+    "moduleResolution":"node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": false,
+    "outDir": ".build",
+    "rootDir": "./",
+  },
+  "include": [
+    "logging/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "logging/tests",
+    "jest.config.ts"
+  ]
+}
