@@ -8,13 +8,6 @@ class Logging {
         this.client = client;
     }
 
-    private output(): Output {
-        return {
-            statusCode: 200,
-            body: 'Message logged successfully.',
-        }
-    }
-
     public async send(message: string): Promise<Output> {
         await this.client.send([{
             timestamp: Date.now(),
@@ -22,6 +15,13 @@ class Logging {
         }]);
 
         return this.output();
+    }
+
+    private output(): Output {
+        return {
+            statusCode: 200,
+            body: 'Message logged successfully.',
+        }
     }
 }
 

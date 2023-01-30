@@ -26,6 +26,17 @@ class CloudWatchClient implements LoggingClient {
         this.errorReportingClient = errorReportingClient;
     }
 
+    public async send(events: InputLogEvent[]): Promise<boolean> {
+        if (events.length === 0) {
+            return Promise.resolve(false);
+        }
+
+        await this.setLogStream();
+        await this.putLogEvents(events);
+
+        return Promise.resolve(true);
+    }
+
     private setCredentials(): void {
         this.AWS.config.getCredentials((error: AWSError) => {
             if (error) {
@@ -85,17 +96,6 @@ class CloudWatchClient implements LoggingClient {
         } catch (error: unknown) {
             this.errorReportingClient.send(error);
         }
-    }
-
-    public async send(events: InputLogEvent[]): Promise<boolean> {
-        if (events.length === 0) {
-            return Promise.resolve(false);
-        }
-
-        await this.setLogStream();
-        await this.putLogEvents(events);
-
-        return Promise.resolve(true);
     }
 }
 
