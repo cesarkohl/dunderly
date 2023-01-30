@@ -22,6 +22,10 @@ lint-run: # run ESLint on all TS files
 	@echo ${START}"Running ESLint against TypeScript files..."${END}
 	@npx eslint ./logging
 
+security-audit:
+	@echo ${START}"Running Security Audit..."${END}
+	@npm run security-audit
+
 sls-invoke-local: # invoke all functions locally for testing purposes
 	@echo ${START}"Invoking Lambda function logging locally..."${END}
 	@make lint-run
