@@ -1,5 +1,5 @@
 @startuml
-'!theme amiga
+!theme amiga
 
 package shared {
     interface Output {
