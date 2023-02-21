@@ -9,7 +9,7 @@
     "security-audit": "audit-ci --config audit-ci.json"
   },
   "dependencies": {
-    "@aws-sdk/client-cloudwatch-logs": "^3.257.0",
+    "@aws-sdk/client-cloudwatch-logs": "^3.276.0",
     "@bugsnag/js": "^7.19.0",
     "aws-sdk": "^2.1301.0",
     "dotenv": "^16.0.3",
