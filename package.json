@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-cloudwatch-logs": "^3.257.0",
-    "@bugsnag/js": "^7.19.0",
+    "@bugsnag/js": "^7.20.0",
     "aws-sdk": "^2.1301.0",
     "dotenv": "^16.0.3",
     "ts-node": "^10.9.1"
